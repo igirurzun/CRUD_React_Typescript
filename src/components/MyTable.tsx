@@ -44,11 +44,11 @@ const MyTable: React.FC<TableNewDataProps> = ({ data }) => {
   const defaultColumns: (ColumnTypes[number] & {
     dataIndex: string;
   })[] = [
-      {
-        title: "id",
-        dataIndex: "id",
-        key: "id",
-      },
+      // {
+      //   title: "id",
+      //   dataIndex: "id",
+      //   key: "id",
+      // },
       {
         title: "Title",
         dataIndex: "title",
