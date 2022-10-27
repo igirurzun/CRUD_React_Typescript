@@ -19,11 +19,10 @@ export function formFields() {
 // create form items.
 function initFormFields(i: number) {
   const schemaObjValues = jsonSchema;
-  if (
-    schemaObjValues[i].component === "range_picker"
-  ) {
+  if (schemaObjValues[i].component === "range_picker") {
     return (
       <Form.Item
+        key={i}
         name={schemaObjValues[i].label.toLowerCase()}
         label={schemaObjValues[i].label}
         rules={[
@@ -32,12 +31,13 @@ function initFormFields(i: number) {
           },
         ]}
       >
-        {initComponentType(schemaObjValues[i])}
+        {initComponentType(schemaObjValues[i], i)}
       </Form.Item>
     );
   } else {
     return (
       <Form.Item
+        key={i}
         name={schemaObjValues[i].name}
         label={schemaObjValues[i].label}
         rules={[
@@ -46,36 +46,38 @@ function initFormFields(i: number) {
           },
         ]}
       >
-        {initComponentType(schemaObjValues[i])}
+        {initComponentType(schemaObjValues[i], i)}
       </Form.Item>
     );
   }
 }
 
-//calculate the respective component the item
-function initComponentType(component: any) {
+//calculate the respective component item
+function initComponentType(component: any, index: number) {
   if (component.component === "text") {
-    return <Input />;
+    return <Input key={index} />;
   } else if (component.component === "select") {
     return (
-      <Select placeholder="" allowClear>
+      <Select key={index} placeholder="" allowClear>
         {fetchOptions(component.options)}
       </Select>
     );
   } else if (component.component === "range_picker") {
-    return <RangePicker />;
+    return <RangePicker key={index} />;
   } else if (component.component === "textarea") {
-    return <TextArea />;
+    return <TextArea key={index} />;
   }
 }
 
 //create the different options for drop down elements
 function fetchOptions(options: any) {
-  var result = [];
+  let result = [];
 
   for (let index = 0; index < options.length; index++) {
     result[index] = (
-      <Option value={options[index].value}>{options[index].label}</Option>
+      <Option key={index} value={options[index].value}>
+        {options[index].label}
+      </Option>
     );
   }
   return result;
